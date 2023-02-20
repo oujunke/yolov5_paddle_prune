@@ -160,12 +160,12 @@ def run(data,
         # print("--->flag", flag, weights)
         # exit()
         if flag:
-            # names = {k: v for k, v in enumerate(paddle.load(model_state_dict_path)['names'])}
+            names = {k: v for k, v in enumerate(paddle.load(model_state_dict_path)['names'])}
             model.set_state_dict(paddle.load(model_state_dict_path)['state_dict'])
         else:
             # xx = paddle.load(weights)
             # print("xx keys(): ", xx.keys())
-            # names = {k: v for k, v in enumerate(paddle.load(weights)['names'])}
+            names = {k: v for k, v in enumerate(paddle.load(weights)['names'])}
             model.set_state_dict(paddle.load(weights)['state_dict'])
         model.fuse()
         gs = max(int(model.stride.max()), 32)  # grid size (max stride)
