@@ -5,3 +5,4 @@
 /.vs/yolov5_paddle_prune
 /env
 /TrainData
+/TrainGameData
