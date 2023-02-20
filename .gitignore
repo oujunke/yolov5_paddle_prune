@@ -6,3 +6,5 @@
 /env
 /TrainData
 /TrainGameData
+/__pycache__
+/weights/weights.zip
