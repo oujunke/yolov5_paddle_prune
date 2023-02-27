@@ -1,0 +1,4 @@
+python train.py --img 640 --batch 64 --epochs 1 --data ./data/coco_person.yaml --cfg models/yolov5n.yaml --weights weights/yolov5n6.pdparams
+
+python prune_val.py --img 640  --data ./data/coco_person.yaml --cfg models/yolov5n.yaml --weights weights/train.pdparams
+!python detect.py --weights ./weights/finetune.pdparams --cfg cfg/prune_0.5_keep_0.01_8x_yolov5n_v6_person.cfg --data ./data/coco_person.yaml --source 05000319.jpg

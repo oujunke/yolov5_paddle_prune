@@ -24,7 +24,7 @@ from paddle import amp
 from paddle.optimizer import Adam, Momentum
 import paddle.optimizer.lr as lr_scheduler
 from tqdm import tqdm
-import GPUtil
+#import GPUtil
 
 
 FILE = Path(__file__).resolve()

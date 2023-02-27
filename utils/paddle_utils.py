@@ -13,7 +13,7 @@ import time
 from contextlib import contextmanager
 from copy import deepcopy
 from pathlib import Path
-import GPUtil
+#import GPUtil
 
 import paddle
 import paddle.distributed as dist

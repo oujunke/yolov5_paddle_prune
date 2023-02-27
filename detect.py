@@ -121,12 +121,13 @@ def run(weights=ROOT / 'yolov5s.pdparams',  # model.pdparams path(s)
     if pdparams:
         yaml_cfg = "models/yolov5n.yaml"  # 暂时先写死
         model = Model(yaml_cfg, ch=3, nc=nc, anchors=hyp.get('anchors'))  # create
+        print(f"model1-{model.state_dict()['model.2.cv3.conv.weight']}")
         if cfg.endswith(".cfg"):
             cfg_model = Darknet(opt.cfg, (opt.imgsz, opt.imgsz))
             initialize_weights(cfg_model)
             cfg_model.set_state_dict(paddle.load(w)['state_dict'])
             copy_weight_v6_reverse(model, cfg_model)
-
+        print(f"model2-{model.state_dict()['model.2.cv3.conv.weight']}")
         raw_wgt = paddle.load(w)
         # print(raw_wgt.keys())
         wgt = raw_wgt['state_dict']
@@ -135,6 +136,7 @@ def run(weights=ROOT / 'yolov5s.pdparams',  # model.pdparams path(s)
             # break
 
         model.set_state_dict(wgt)
+        print(f"model3-{model.state_dict()['model.2.cv3.conv.weight']}")
         model.eval()
         stride = int(model.stride.max())  # model stride
         names = {0: "person"}
@@ -200,10 +202,16 @@ def run(weights=ROOT / 'yolov5s.pdparams',  # model.pdparams path(s)
     dt, seen = [0.0, 0.0, 0.0], 0
     for path, img, im0s, vid_cap, s in dataset:
         t1 = time_sync()
+        print('图片')
+        print(img)
+        #np.save("图片.txt",img)
         if onnx:
             img = img.astype('float32')
         else:
             img = paddle.to_tensor(img)
+        from PIL import Image
+        im = Image.fromarray(img.numpy().transpose((1, 2, 0)))
+        im.save("clhtp.jpeg")
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
         if len(img.shape) == 3:
             img = img[None]  # expand for batch dim
@@ -215,7 +223,12 @@ def run(weights=ROOT / 'yolov5s.pdparams',  # model.pdparams path(s)
         # Inference
         if pdparams:
             visualize = increment_path(save_dir / Path(path).stem, mkdir=True) if visualize else False
-            # print(img)
+            print('处理后图片')
+            print(img)
+            #np.save("处理后图片.txt",img)
+            fileObject = open('处理后图片-2.txt', 'w')  
+            fileObject.writelines(f"{img.numpy().tolist()}")
+            fileObject.close()
             pred = model(img, augment=augment, visualize=visualize)[0]
             # print("--->pred", pred)
             # exit()
@@ -264,7 +277,17 @@ def run(weights=ROOT / 'yolov5s.pdparams',  # model.pdparams path(s)
         # print(agnostic_nms)
         # print(max_det)
         # exit()
+        fileObject = open('model.txt', 'w')  
+        sd=model.state_dict()
+        for s in sd:
+            fileObject.writelines(f"{s}\t{sd[s].numpy().tolist()}\r\n")
+        fileObject.close()
+        fileObject = open('预测结果.txt', 'w')  
+        fileObject.writelines(f"{pred.numpy().tolist()}")
+        fileObject.close()
         pred = non_max_suppression(pred.numpy(), conf_thres, iou_thres, classes, agnostic_nms, max_det=max_det)
+        print("处理后预测结果")
+        print(pred)
         dt[2] += time_sync() - t3
 
         # print("=================================================")
@@ -294,8 +317,10 @@ def run(weights=ROOT / 'yolov5s.pdparams',  # model.pdparams path(s)
             annotator = Annotator(im0, line_width=line_thickness, example=str(names))
             if len(det):
                 # Rescale boxes from img_size to im0 size
+                print(f"img.shape:{img.shape}-im0.shape:{im0.shape}")
                 det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
-
+                print("处理后det结果")
+                print(det)
                 # Print results
                 for c in np.unique(det[:, -1]):
                     n = (det[:, -1] == c).sum()  # detections per class

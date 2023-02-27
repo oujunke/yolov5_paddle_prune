@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{44544f8f-a781-4e35-96fb-82edb78cb94d}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>detect.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>
+    </InterpreterId>
+    <CommandLineArguments> --weights ./weights/finetune.pdparams --cfg cfg/prune_0.5_keep_0.01_8x_yolov5n_v6_person.cfg --data ./data/coco_person.yaml --source t1.jpg</CommandLineArguments>
+    <EnableNativeCodeDebugging>True</EnableNativeCodeDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="android_detect.py" />
+    <Compile Include="convert.py" />
+    <Compile Include="create_txt.py" />
+    <Compile Include="detect.py" />
+    <Compile Include="export.py" />
+    <Compile Include="finetune_prune.py" />
+    <Compile Include="hubconf.py" />
+    <Compile Include="models\common.py" />
+    <Compile Include="models\copy_weight.py" />
+    <Compile Include="models\darknet.py" />
+    <Compile Include="models\experimental.py" />
+    <Compile Include="models\tf.py" />
+    <Compile Include="models\yolo.py" />
+    <Compile Include="models\yolo_android.py" />
+    <Compile Include="models\yolo_old.py" />
+    <Compile Include="models\__init__.py" />
+    <Compile Include="prune_val.py" />
+    <Compile Include="slim_prune_yolov5n_8x.py" />
+    <Compile Include="train.py" />
+    <Compile Include="train_sparsity.py" />
+    <Compile Include="utils\activations.py" />
+    <Compile Include="utils\augmentations.py" />
+    <Compile Include="utils\autoanchor.py" />
+    <Compile Include="utils\autobatch.py" />
+    <Compile Include="utils\aws\resume.py" />
+    <Compile Include="utils\aws\__init__.py" />
+    <Compile Include="utils\callbacks.py" />
+    <Compile Include="utils\datasets.py" />
+    <Compile Include="utils\downloads.py" />
+    <Compile Include="utils\download_utils.py" />
+    <Compile Include="utils\flask_rest_api\example_request.py" />
+    <Compile Include="utils\flask_rest_api\restapi.py" />
+    <Compile Include="utils\general.py" />
+    <Compile Include="utils\loggers\wandb\log_dataset.py" />
+    <Compile Include="utils\loggers\wandb\sweep.py" />
+    <Compile Include="utils\loggers\wandb\wandb_utils.py" />
+    <Compile Include="utils\loggers\wandb\__init__.py" />
+    <Compile Include="utils\loggers\__init__.py" />
+    <Compile Include="utils\loss.py" />
+    <Compile Include="utils\metrics.py" />
+    <Compile Include="utils\paddle_utils.py" />
+    <Compile Include="utils\plots.py" />
+    <Compile Include="utils\profile_utils.py" />
+    <Compile Include="utils\prune.py" />
+    <Compile Include="utils\prune_utils.py" />
+    <Compile Include="utils\__init__.py" />
+    <Compile Include="val.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="models" />
+    <Folder Include="utils" />
+    <Folder Include="utils\aws" />
+    <Folder Include="utils\flask_rest_api" />
+    <Folder Include="utils\loggers" />
+    <Folder Include="utils\loggers\wandb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Start.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>

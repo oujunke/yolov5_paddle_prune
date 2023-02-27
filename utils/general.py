@@ -392,28 +392,28 @@ def check_dataset(data, autodownload=True):
     if 'names' not in data:
         data['names'] = [f'class{i}' for i in range(data['nc'])]  # assign class names if missing
     train, val, test, s = (data.get(x) for x in ('train', 'val', 'test', 'download'))
-    if val:
-        val = [Path(x).resolve() for x in (val if isinstance(val, list) else [val])]  # val path
-        if not all(x.exists() for x in val):
-            print('\nWARNING: Dataset not found, nonexistent paths: %s' % [str(x) for x in val if not x.exists()])
-            if s and autodownload:  # download script
-                root = path.parent if 'path' in data else '..'  # unzip directory i.e. '../'
-                if s.startswith('http') and s.endswith('.zip'):  # URL
-                    f = Path(s).name  # filename
-                    print(f'Downloading {s} to {f}...')
-                    paddle.hub.download_url_to_file(s, f) # 注意
-                    Path(root).mkdir(parents=True, exist_ok=True)  # create root
-                    ZipFile(f).extractall(path=root)  # unzip
-                    Path(f).unlink()  # remove zip
-                    r = None  # success
-                elif s.startswith('bash '):  # bash script
-                    print(f'Running {s} ...')
-                    r = os.system(s)
-                else:  # python script
-                    r = exec(s, {'yaml': data})  # return None
-                print(f"Dataset autodownload {f'success, saved to {root}' if r in (0, None) else 'failure'}\n")
-            else:
-                raise Exception('Dataset not found.')
+    #if val:
+    #    val = [Path(x).resolve() for x in (val if isinstance(val, list) else [val])]  # val path
+    #    if not all(x.exists() for x in val):
+    #        print('\nWARNING: Dataset not found, nonexistent paths: %s' % [str(x) for x in val if not x.exists()])
+    #        if s and autodownload:  # download script
+    #            root = path.parent if 'path' in data else '..'  # unzip directory i.e. '../'
+    #            if s.startswith('http') and s.endswith('.zip'):  # URL
+    #                f = Path(s).name  # filename
+    #                print(f'Downloading {s} to {f}...')
+    #                paddle.hub.download_url_to_file(s, f) # 注意
+    #                Path(root).mkdir(parents=True, exist_ok=True)  # create root
+    #                ZipFile(f).extractall(path=root)  # unzip
+    #                Path(f).unlink()  # remove zip
+    #                r = None  # success
+    #            elif s.startswith('bash '):  # bash script
+    #                print(f'Running {s} ...')
+    #                r = os.system(s)
+    #            else:  # python script
+    #                r = exec(s, {'yaml': data})  # return None
+    #            print(f"Dataset autodownload {f'success, saved to {root}' if r in (0, None) else 'failure'}\n")
+    #        else:
+    #            raise Exception('Dataset not found.')
 
     return data  # dictionary
 
@@ -649,7 +649,9 @@ def non_max_suppression(prediction, conf_thres=0.25, iou_thres=0.45, classes=Non
     Returns:
          list of detections, on (n,6) tensor per image [xyxy, conf, cls]
     """
-
+    print("预测结果")
+    print(prediction)
+    #np.save("预测结果.txt",prediction)
     nc = prediction.shape[2] - 5  # number of classes
     xc = prediction[..., 4] > conf_thres  # candidates
 
