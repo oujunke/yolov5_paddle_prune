@@ -1,0 +1,5 @@
+/.vs
+/env-bf
+/models/__pycache__
+/utils/__pycache__
+/runs/detect
