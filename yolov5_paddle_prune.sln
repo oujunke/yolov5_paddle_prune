@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33027.239
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "yolov5_paddle_prune", "yolov5_paddle_prune.pyproj", "{E9EA0AF2-53C8-4425-B56A-259CB3F9C630}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E9EA0AF2-53C8-4425-B56A-259CB3F9C630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9EA0AF2-53C8-4425-B56A-259CB3F9C630}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A17CFD7-E6B3-4A5C-A48F-FDA786DE2160}
+	EndGlobalSection
+EndGlobal

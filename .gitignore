@@ -3,6 +3,11 @@
 ################################################################################
 
 /.vs/yolov5_paddle_prune
+/env
+/TrainData
+/TrainGameData
+/__pycache__
+/weights/weights.zip
 /env-bf
 /runs/detect
 /utils/__pycache__
